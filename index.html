@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>九州旅行 確定行程｜男3人旅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#2563EB;
+    --primary-dark:#1D4ED8;
+    --primary-tint:#EFF6FF;
+    --ink:#1A1F27;
+    --ink-soft:#6B7280;
+    --bg:#F7F8FA;
+    --card:#FFFFFF;
+    --border:#E5E7EB;
+    --border-soft:#EFF1F3;
+    --warn:#DC2626;
+    --warn-tint:#FEF2F2;
+    --ok-tint:#F0FDF4;
+    --ok:#15803D;
+    --font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{font-size:16px;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:3rem;
+  }
+
+  /* header */
+  header.top{
+    background:var(--primary);
+    color:#fff;
+    padding:1.1rem 1.15rem 1rem;
+  }
+  header.top .row{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  header.top .eyebrow{
+    font-size:.7rem; letter-spacing:.08em; opacity:.85; margin:0 0 .3rem;
+    font-weight:700; text-transform:uppercase;
+  }
+  header.top h1{
+    font-size:1.35rem; margin:0 0 .5rem; line-height:1.35; font-weight:900;
+  }
+  header.top .meta{font-size:.8rem; opacity:.92; line-height:1.75;}
+  header.top .meta b{font-weight:700;}
+  .gearbtn{
+    flex:0 0 auto; width:2.1rem; height:2.1rem; border-radius:.6rem;
+    background:rgba(255,255,255,0.16); border:none; color:#fff;
+    font-size:1.05rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .gearbtn:active{background:rgba(255,255,255,0.3);}
+
+  /* tab nav */
+  nav.tabs{
+    position:sticky; top:0; z-index:50;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex; gap:.4rem; overflow-x:auto;
+    padding:.6rem .75rem;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{
+    flex:0 0 auto;
+    font-family:inherit; font-size:.8rem; font-weight:700;
+    color:var(--ink-soft);
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:.45rem .85rem;
+    white-space:nowrap;
+    cursor:pointer;
+  }
+  nav.tabs button .d{display:block; font-size:.6rem; font-weight:500; opacity:.8; margin-top:1px;}
+  nav.tabs button.active{
+    background:var(--primary); color:#fff; border-color:var(--primary);
+  }
+
+  main{max-width:640px; margin:0 auto; padding:1.1rem 1rem .5rem;}
+  section.day{display:none;}
+  section.day.active{display:block; animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+  /* section head */
+  .section-head{display:flex; align-items:center; gap:.85rem; margin:.2rem 0 1.15rem;}
+  .badge{
+    width:2.9rem; height:2.9rem; flex:0 0 auto; border-radius:.85rem;
+    background:var(--primary); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.15rem; font-weight:900;
+  }
+  .badge .sub{display:none;}
+  .section-head h2{font-size:1.15rem; margin:0 0 .15rem; font-weight:900; color:var(--ink);}
+  .section-head p{margin:0; font-size:.8rem; color:var(--ink-soft);}
+
+  /* timeline */
+  .timeline{position:relative; padding-left:1.35rem;}
+  .timeline::before{
+    content:""; position:absolute; left:.33rem; top:.4rem; bottom:.4rem;
+    width:2px; background:var(--border);
+  }
+  .stop{position:relative; margin-bottom:.95rem;}
+  .stop::before{
+    content:""; position:absolute; left:-1.35rem; top:.32rem;
+    width:.7rem; height:.7rem; border-radius:50%;
+    background:var(--primary); border:2px solid var(--bg);
+  }
+  .stop.undecided::before{background:var(--card); border:2px solid var(--border);}
+  .stop .time{
+    font-weight:700; font-size:.8rem; color:var(--primary-dark);
+    margin-bottom:.3rem; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;
+  }
+  .stop.undecided .time{color:var(--ink-soft);}
+  .tag{
+    font-size:.62rem; font-weight:700; padding:.15rem .5rem; border-radius:999px;
+    background:var(--ok-tint); color:var(--ok); letter-spacing:.02em;
+  }
+  .card{
+    background:var(--card); border:1px solid var(--border); border-left:3px solid var(--primary);
+    border-radius:.6rem; padding:.8rem .9rem;
+  }
+  .stop.undecided .card{
+    border-left:3px dashed var(--border); background:transparent;
+  }
+  .card h3{margin:0 0 .3rem; font-size:.92rem; font-weight:700; line-height:1.5;}
+  .stop.undecided .card h3{color:var(--ink-soft); font-weight:500;}
+  .card p{margin:0; font-size:.8rem; line-height:1.65; color:var(--ink-soft);}
+  .card p + p{margin-top:.4rem;}
+  .linkbtn{
+    display:inline-flex; align-items:center; gap:.3rem;
+    margin-top:.5rem; font-size:.78rem; font-weight:700;
+    color:var(--primary); text-decoration:none;
+    background:var(--primary-tint); padding:.4rem .7rem; border-radius:.5rem;
+  }
+  .linkbtn:active{filter:brightness(0.95);}
+  .placelink{
+    color:var(--primary); font-weight:700; text-decoration:none;
+    border-bottom:1.5px solid var(--primary-tint);
+  }
+  .placelink:active{color:var(--primary-dark);}
+  .placelink::after{content:" ↗"; font-size:.75em; font-weight:400; opacity:.7;}
+
+  .note-inline{
+    margin-top:.5rem; font-size:.75rem; color:var(--warn); background:var(--warn-tint);
+    padding:.5rem .6rem; border-radius:.5rem; line-height:1.6;
+  }
+
+  /* stay list */
+  .staycard{
+    background:var(--card); border:1px solid var(--border); border-radius:.75rem;
+    padding:.9rem 1rem; margin-bottom:.75rem;
+  }
+  .staycard .when{
+    font-size:.7rem; font-weight:700; color:var(--primary-dark);
+    letter-spacing:.02em; margin-bottom:.25rem;
+  }
+  .staycard .name{font-size:1rem; font-weight:700; margin-bottom:.3rem; display:block;}
+  .staycard .addr{font-size:.78rem; color:var(--ink-soft); line-height:1.6; margin-bottom:.5rem;}
+  .staycard .price{font-size:.8rem; font-weight:700; color:var(--ink); margin-bottom:.6rem;}
+  .staycard .actions{display:flex; gap:.5rem; flex-wrap:wrap;}
+  .staycard .linkbtn{margin-top:0;}
+  .sitebtn{background:var(--primary); color:#fff;}
+  .sitebtn:active{background:var(--primary-dark);}
+
+  /* cost */
+  .cost-group{margin-bottom:1.25rem;}
+  .cost-group h3{
+    font-size:.95rem; color:var(--ink); font-weight:700;
+    margin:0 0 .5rem; padding-bottom:.4rem; border-bottom:1px solid var(--border);
+  }
+  .cost-row{
+    display:flex; justify-content:space-between; gap:.6rem;
+    padding:.55rem 0; border-bottom:1px dashed var(--border-soft);
+  }
+  .cost-row:last-of-type{border-bottom:none;}
+  .cost-row .label{font-size:.82rem; font-weight:700;}
+  .cost-row .memo{font-size:.7rem; color:var(--ink-soft); margin-top:.15rem; line-height:1.5;}
+  .cost-row .amt{font-size:.82rem; font-weight:700; white-space:nowrap; padding-left:.5rem;}
+  .cost-sub{display:flex; justify-content:space-between; padding-top:.5rem; font-size:.8rem; font-weight:700; color:var(--ink);}
+  .grand{
+    background:var(--primary); color:#fff; border-radius:.75rem; padding:1rem 1.1rem; margin-top:.4rem;
+  }
+  .grand .row{display:flex; justify-content:space-between; align-items:baseline; padding:.3rem 0;}
+  .grand .row.total .amt{font-size:1.35rem; font-weight:900;}
+  .grand .row .label{font-size:.78rem; opacity:.9;}
+  .grand .row .amt{font-weight:700;}
+
+  .infobox{
+    background:var(--primary-tint); border:1px solid var(--border); border-radius:.6rem;
+    padding:.75rem .85rem; font-size:.76rem; line-height:1.7; color:var(--ink); margin-bottom:1.1rem;
+  }
+  .infobox b{color:var(--primary-dark);}
+
+  /* links list */
+  .linklist{list-style:none; margin:0 0 1.1rem; padding:0;}
+  .linklist li{margin-bottom:.6rem;}
+  .linkcard{
+    display:flex; justify-content:space-between; align-items:center; gap:.6rem;
+    background:var(--card); border:1px solid var(--border); border-radius:.6rem;
+    padding:.8rem .85rem; text-decoration:none; color:var(--ink);
+  }
+  .linkcard .t{font-size:.83rem; font-weight:700;}
+  .linkcard .u{font-size:.68rem; color:var(--primary); word-break:break-all; margin-top:.15rem;}
+  .linkcard .arrow{color:var(--primary); font-size:1rem; flex:0 0 auto;}
+  .phonecard{
+    background:var(--card); border:1px solid var(--border); border-radius:.6rem;
+    padding:.8rem .85rem; font-size:.8rem; margin-bottom:.6rem;
+  }
+  .phonecard .t{font-weight:700; margin-bottom:.2rem;}
+
+  /* settings */
+  .setting-group{margin-bottom:1.5rem;}
+  .setting-group h3{font-size:.88rem; font-weight:700; margin:0 0 .1rem;}
+  .setting-group .desc{font-size:.72rem; color:var(--ink-soft); margin:0 0 .7rem;}
+  .swatches{display:flex; gap:.65rem; flex-wrap:wrap;}
+  .swatch{
+    width:2.6rem; height:2.6rem; border-radius:50%; border:2px solid transparent;
+    cursor:pointer; position:relative; padding:0;
+  }
+  .swatch.active{border-color:var(--ink);}
+  .swatch.active::after{
+    content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:1.05rem; font-weight:900;
+  }
+  .segmented{display:flex; background:var(--bg); border:1px solid var(--border); border-radius:.6rem; padding:.2rem; gap:.2rem;}
+  .segmented button{
+    flex:1; font-family:inherit; font-size:.82rem; font-weight:700; color:var(--ink-soft);
+    background:transparent; border:none; border-radius:.45rem; padding:.5rem 0; cursor:pointer;
+  }
+  .segmented button.active{background:var(--card); color:var(--primary); box-shadow:0 1px 2px rgba(0,0,0,0.08);}
+  .setting-note{
+    font-size:.72rem; color:var(--ink-soft); background:var(--bg); border:1px solid var(--border);
+    border-radius:.6rem; padding:.7rem .8rem; line-height:1.7;
+  }
+  .resetbtn{
+    margin-top:.3rem; font-size:.78rem; font-weight:700; color:var(--ink-soft);
+    background:var(--card); border:1px solid var(--border); border-radius:.5rem;
+    padding:.5rem .9rem; cursor:pointer;
+  }
+
+  footer{
+    max-width:640px; margin:1.2rem auto 0; padding:1rem 1.15rem 0;
+    font-size:.68rem; color:var(--ink-soft); line-height:1.8; border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="row">
+    <div>
+      <p class="eyebrow">Kyushu Trip Itinerary</p>
+      <h1>九州旅行 確定行程</h1>
+      <div class="meta">
+        福岡・能古島・別府　男3人旅<br>
+        <b>2026年8月23日（日）〜27日（木）</b>　4泊5日<br>
+        出発地：新千歳空港
+      </div>
+    </div>
+    <button class="gearbtn" id="gearbtn" aria-label="表示設定">⚙</button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-target="day1" class="active">Day1<span class="d">8/23</span></button>
+  <button data-target="day2">Day2<span class="d">8/24</span></button>
+  <button data-target="day3">Day3<span class="d">8/25</span></button>
+  <button data-target="day4">Day4<span class="d">8/26</span></button>
+  <button data-target="day5">Day5<span class="d">8/27</span></button>
+  <button data-target="stay">宿</button>
+  <button data-target="cost">費用</button>
+  <button data-target="links">予約</button>
+  <button data-target="settings">設定</button>
+</nav>
+
+<main>
+
+  <!-- DAY 1 -->
+  <section class="day active" id="day1">
+    <div class="section-head">
+      <div class="badge">1</div>
+      <div><h2>新千歳 → 福岡（博多泊）</h2><p>移動日／ホテルチェックインまでは自由行動</p></div>
+    </div>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">09:20</div>
+        <div class="card"><h3><a class="placelink" href="https://www.new-chitose-airport.jp/" target="_blank" rel="noopener">新千歳空港</a> 集合</h3><p>国内線のため出発60〜90分前を目安に。</p></div>
+      </div>
+      <div class="stop">
+        <div class="time">10:50 <span class="tag">予約済み</span></div>
+        <div class="card"><h3><a class="placelink" href="https://www.new-chitose-airport.jp/" target="_blank" rel="noopener">新千歳空港</a> 発</h3><p>1人往復18,000円で予約済み。</p></div>
+      </div>
+      <div class="stop">
+        <div class="time">13:25</div>
+        <div class="card"><h3><a class="placelink" href="https://www.fukuoka-airport.jp/" target="_blank" rel="noopener">福岡空港</a> 着</h3></div>
+      </div>
+      <div class="stop">
+        <div class="time">13:25〜15:00</div>
+        <div class="card">
+          <h3><a class="placelink" href="https://www.fukuoka-airport.jp/" target="_blank" rel="noopener">福岡空港</a> → <a class="placelink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a></h3>
+          <p>地下鉄空港線で博多駅方面へ。チェックインは15:00からなので、道中や博多駅周辺で自由行動を挟んでもOK。</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00</div>
+        <div class="card">
+          <h3>ホテル チェックイン</h3>
+          <p><a class="placelink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a>　〒812-0033 福岡市博多区大博町6-6</p>
+          <p>チェックイン15:00〜0:30／チェックアウト0:00〜10:00</p>
+        </div>
+      </div>
+      <div class="stop undecided">
+        <div class="time">以降</div>
+        <div class="card"><h3>未定（自由行動）</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day" id="day2">
+    <div class="section-head">
+      <div class="badge">2</div>
+      <div><h2>博多 → 能古島</h2><p>アイランドパーク〈潮風〉泊</p></div>
+    </div>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">10:00</div>
+        <div class="card"><h3>ホテル チェックアウト</h3></div>
+      </div>
+      <div class="stop">
+        <div class="time">10:13 → 11:45 <span class="tag">Googleマップ確認済み</span></div>
+        <div class="card">
+          <h3>ホテル → <a class="placelink" href="https://nokonoshima.com/" target="_blank" rel="noopener">のこのしまアイランドパーク</a></h3>
+          <p>所要約1時間32分。</p>
+          <a class="linkbtn" href="https://maps.app.goo.gl/53sD5E1pRYR3aFNc9?g_st=il" target="_blank" rel="noopener">→ ルートを開く</a>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">午後</div>
+        <div class="card">
+          <h3>能古島でごはん、<a class="placelink" href="https://nokonoshima.com/" target="_blank" rel="noopener">アイランドパーク</a>内で遊ぶ</h3>
+          <p>入園大人1,500円・営業9:00〜17:30（コテージ宿泊者は入園料込みの場合あり）</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00頃</div>
+        <div class="card">
+          <h3>コテージ チェックイン</h3>
+          <p><a class="placelink" href="https://nokonoshima.com/" target="_blank" rel="noopener">のこのしまアイランドパーク〈潮風〉</a>素泊まり／3人で16,000円</p>
+        </div>
+      </div>
+      <div class="stop undecided">
+        <div class="time">夕食</div>
+        <div class="card"><h3>未定</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day" id="day3">
+    <div class="section-head">
+      <div class="badge">3</div>
+      <div><h2>能古島 → 海の中道</h2><p>INN THE PARK 泊</p></div>
+    </div>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">9:00</div>
+        <div class="card"><h3>のこのしまアイランドパーク チェックアウト</h3></div>
+      </div>
+      <div class="stop">
+        <div class="time">9:13 → 11:04 <span class="tag">Googleマップ確認済み</span></div>
+        <div class="card">
+          <h3>アイランドパーク → <a class="placelink" href="https://hearts81.com/bs/" target="_blank" rel="noopener">HEARTSバスステーション博多</a></h3>
+          <p>所要約1時間51分（フェリー＋乗り継ぎ）。</p>
+          <a class="linkbtn" href="https://maps.app.goo.gl/cn2CcgkiFeq7N5qk8?g_st=il" target="_blank" rel="noopener">→ ルートを開く</a>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">11:40発 → 12:30着 <span class="tag">画像で確認済み</span></div>
+        <div class="card">
+          <h3>無料シャトルバスで <a class="placelink" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">INN THE PARK</a> へ（案A）</h3>
+          <p>「<a class="placelink" href="https://hearts81.com/bs/" target="_blank" rel="noopener">HEARTSバスステーション博多</a>」1階のりば発、所要50分（2026年夏季増便時刻表）。</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">13:40発 → 14:30着 <span class="tag">画像で確認済み</span></div>
+        <div class="card">
+          <h3>無料シャトルバスで <a class="placelink" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">INN THE PARK</a> へ（案B）</h3>
+          <p>「HEARTSバスステーション博多」1階のりば発、所要50分（2026年夏季増便時刻表）。</p>
+          <p>案A・案Bどちらも実在の便です。どちらに乗るかはお好みで選んでください。</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00〜</div>
+        <div class="card">
+          <h3><a class="placelink" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">INN THE PARK 福岡</a> チェックイン</h3>
+          <p>海の中道海浜公園内／2食付き（夕食BBQ＋朝食）／3人で49,200円</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 4 -->
+  <section class="day" id="day4">
+    <div class="section-head">
+      <div class="badge">4</div>
+      <div><h2>海の中道 → 別府・鉄輪</h2><p>別館うみね泊／地獄めぐり</p></div>
+    </div>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">10:00</div>
+        <div class="card"><h3>INN THE PARK チェックアウト</h3></div>
+      </div>
+      <div class="stop">
+        <div class="time">10:30発</div>
+        <div class="card">
+          <h3>無料シャトルバスで <a class="placelink" href="https://hearts81.com/bs/" target="_blank" rel="noopener">HEARTSバスステーション博多</a> へ</h3>
+          <p>所要50分（2026年夏季増便時刻表）／到着目安11:20頃。</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">→ 14:48着予定 <span class="tag">Googleマップ確認済み</span></div>
+        <div class="card">
+          <h3><a class="placelink" href="https://hearts81.com/bs/" target="_blank" rel="noopener">HEARTSバスステーション博多</a> → <a class="placelink" href="https://annex-umine.com/" target="_blank" rel="noopener">別館うみね</a></h3>
+          <p>高速バス等を乗り継いで移動。とよのくに号を使う場合は要事前予約（下記「予約」タブ参照）。</p>
+          <a class="linkbtn" href="https://maps.app.goo.gl/9svvEvkVCgnEQ5ht5?g_st=il" target="_blank" rel="noopener">→ ルートを開く</a>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">午後</div>
+        <div class="card">
+          <h3><a class="placelink" href="http://www.beppu-jigoku.com/" target="_blank" rel="noopener">べっぷ地獄めぐり</a></h3>
+          <p>共通観覧券 大人2,400円（7ヶ所、営業8:00〜17:00、当日購入可）</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00〜19:00</div>
+        <div class="card">
+          <h3>宿 チェックイン</h3>
+          <p><a class="placelink" href="https://annex-umine.com/" target="_blank" rel="noopener">別館うみね</a>　大分県別府市大字鉄輪字山ノ上580-1</p>
+          <p>夕朝食付き／3人で72,090円</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 5 -->
+  <section class="day" id="day5">
+    <div class="section-head">
+      <div class="badge">5</div>
+      <div><h2>別府 → 福岡 → 新千歳</h2><p>帰路</p></div>
+    </div>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">目安10:15</div>
+        <div class="card">
+          <h3>鉄輪バス停 発</h3>
+          <p>高速バス「とよのくに号」で<a class="placelink" href="https://www.fukuoka-airport.jp/" target="_blank" rel="noopener">福岡空港</a>へ　所要約2時間45分／運賃3,250円</p>
+          <p>14:00発の便に余裕を持って間に合わせる目安の時刻です。</p>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">13:00頃</div>
+        <div class="card"><h3><a class="placelink" href="https://www.fukuoka-airport.jp/" target="_blank" rel="noopener">福岡空港</a> 着</h3></div>
+      </div>
+      <div class="stop">
+        <div class="time">14:00 <span class="tag">予約済み</span></div>
+        <div class="card"><h3><a class="placelink" href="https://www.fukuoka-airport.jp/" target="_blank" rel="noopener">福岡空港</a> 発</h3></div>
+      </div>
+      <div class="stop">
+        <div class="time">到着後</div>
+        <div class="card"><h3><a class="placelink" href="https://www.new-chitose-airport.jp/" target="_blank" rel="noopener">新千歳空港</a> 着・解散</h3><p>4泊5日の九州旅行、お疲れさまでした。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAY LIST -->
+  <section class="day" id="stay">
+    <div class="section-head">
+      <div class="badge">宿</div>
+      <div><h2>宿泊先一覧</h2><p>4泊分の宿。名前をタップで公式サイト／地図へ</p></div>
+    </div>
+
+    <div class="staycard">
+      <div class="when">8/23（日）泊　1泊目</div>
+      <a class="name placelink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a>
+      <div class="addr">〒812-0033 福岡市博多区大博町6-6／チェックイン15:00〜0:30</div>
+      <div class="price">3人で12,150円・素泊まり</div>
+      <div class="actions">
+        <a class="linkbtn sitebtn" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">→ Googleマップで開く</a>
+      </div>
+    </div>
+
+    <div class="staycard">
+      <div class="when">8/24（月）泊　2泊目</div>
+      <a class="name placelink" href="https://nokonoshima.com/" target="_blank" rel="noopener">のこのしまアイランドパーク〈潮風〉</a>
+      <div class="addr">福岡県福岡市西区能古島／チェックイン15:00頃</div>
+      <div class="price">3人で16,000円・素泊まり</div>
+      <div class="actions">
+        <a class="linkbtn sitebtn" href="https://nokonoshima.com/" target="_blank" rel="noopener">→ 公式サイトを開く</a>
+      </div>
+    </div>
+
+    <div class="staycard">
+      <div class="when">8/25（火）泊　3泊目</div>
+      <a class="name placelink" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">INN THE PARK 福岡</a>
+      <div class="addr">海の中道海浜公園内／チェックイン15:00〜</div>
+      <div class="price">3人で49,200円・2食付き（夕食BBQ＋朝食）</div>
+      <div class="actions">
+        <a class="linkbtn sitebtn" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">→ 公式サイトを開く</a>
+      </div>
+    </div>
+
+    <div class="staycard">
+      <div class="when">8/26（水）泊　4泊目</div>
+      <a class="name placelink" href="https://annex-umine.com/" target="_blank" rel="noopener">別館うみね</a>
+      <div class="addr">大分県別府市大字鉄輪字山ノ上580-1／チェックイン15:00〜19:00</div>
+      <div class="price">3人で72,090円・夕朝食付き</div>
+      <div class="actions">
+        <a class="linkbtn sitebtn" href="https://annex-umine.com/" target="_blank" rel="noopener">→ 公式サイトを開く</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COST -->
+  <section class="day" id="cost">
+    <div class="section-head">
+      <div class="badge">¥</div>
+      <div><h2>費用まとめ</h2><p>3人合計／未定の食事代は含みません</p></div>
+    </div>
+
+    <div class="infobox"><b>お読みください：</b> 宿泊・航空券は予約済みの確定額です。移動費はGoogleマップ上でルート選択済みのため、正確な運賃はアプリ側でご確認ください。ここでは目安として概算しています。</div>
+
+    <div class="cost-group">
+      <h3>宿泊・航空券（確定）</h3>
+      <div class="cost-row"><div><div class="label">往復航空券</div><div class="memo">新千歳⇔福岡／予約済み（1人18,000円）</div></div><div class="amt">54,000円</div></div>
+      <div class="cost-row"><div><div class="label"><a class="placelink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a></div><div class="memo">博多／8/23泊</div></div><div class="amt">12,150円</div></div>
+      <div class="cost-row"><div><div class="label"><a class="placelink" href="https://nokonoshima.com/" target="_blank" rel="noopener">のこのしまアイランドパーク〈潮風〉</a></div><div class="memo">能古島／8/24泊・素泊まり</div></div><div class="amt">16,000円</div></div>
+      <div class="cost-row"><div><div class="label"><a class="placelink" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">INN THE PARK 福岡</a></div><div class="memo">海の中道／8/25泊・2食付き</div></div><div class="amt">49,200円</div></div>
+      <div class="cost-row"><div><div class="label"><a class="placelink" href="https://annex-umine.com/" target="_blank" rel="noopener">別館うみね</a></div><div class="memo">別府・鉄輪／8/26泊・夕朝食付き</div></div><div class="amt">72,090円</div></div>
+      <div class="cost-sub"><span>小計</span><span>203,440円</span></div>
+    </div>
+
+    <div class="cost-group">
+      <h3>移動費（概算）</h3>
+      <div class="cost-row"><div><div class="label">Day2：ホテル→能古島</div><div class="memo">フェリー・バス等の乗り継ぎ　目安600円/人</div></div><div class="amt">約1,800円</div></div>
+      <div class="cost-row"><div><div class="label">Day3：能古島→HEARTS博多</div><div class="memo">フェリー・バス等の乗り継ぎ　目安600円/人</div></div><div class="amt">約1,800円</div></div>
+      <div class="cost-row"><div><div class="label">Day3・4：INN THE PARK シャトル</div><div class="memo">HEARTSバスステーション博多⇔INN THE PARK</div></div><div class="amt">無料</div></div>
+      <div class="cost-row"><div><div class="label">Day4：HEARTS博多→別館うみね</div><div class="memo">高速バス想定　目安3,250円/人</div></div><div class="amt">約9,750円</div></div>
+      <div class="cost-row"><div><div class="label">Day5：鉄輪→福岡空港</div><div class="memo">とよのくに号　3,250円/人</div></div><div class="amt">約9,750円</div></div>
+      <div class="cost-sub"><span>小計（概算）</span><span>約23,100円</span></div>
+    </div>
+
+    <div class="cost-group">
+      <h3>アクティビティ</h3>
+      <div class="cost-row"><div><div class="label">べっぷ地獄めぐり共通観覧券</div><div class="memo">1人2,400円×3人（当日購入・未予約）</div></div><div class="amt">7,200円</div></div>
+      <div class="cost-sub"><span>小計</span><span>7,200円</span></div>
+    </div>
+
+    <div class="grand">
+      <div class="row total"><span class="label">総合計（3人・概算）</span><span class="amt">約233,700円</span></div>
+      <div class="row"><span class="label">1人あたり</span><span class="amt">約77,900円</span></div>
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section class="day" id="links">
+    <div class="section-head">
+      <div class="badge">予約</div>
+      <div><h2>予約・リンク集</h2><p>移動前に確認しておきたいリンク</p></div>
+    </div>
+
+    <div class="cost-group">
+      <h3>高速バス「とよのくに号」の予約</h3>
+      <p style="font-size:.76rem;color:var(--ink-soft);margin:0 0 .7rem;line-height:1.7;">全便座席指定制のため要事前予約。Day4・Day5で使う可能性がある区間分、早めの確保がおすすめです。予約は乗車日の前月同日8:00〜開始、8/26・8/27分はすでに受付中です。</p>
+      <ul class="linklist">
+        <li><a class="linkcard" href="https://www.atbus-de.com/rosen/143/" target="_blank" rel="noopener">
+          <div><div class="t">予約ポータル「@バスで」</div><div class="u">atbus-de.com/rosen/143</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://www.nishitetsu.jp/bus/highwaybus/rosen/toyokuni/" target="_blank" rel="noopener">
+          <div><div class="t">西鉄グループ 公式路線ページ</div><div class="u">nishitetsu.jp</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+      </ul>
+      <div class="phonecard"><div class="t">電話予約</div>九州高速バス予約センター　092-734-2727（8:00〜19:00）</div>
+    </div>
+
+    <div class="cost-group">
+      <h3>宿泊先 公式サイト</h3>
+      <ul class="linklist">
+        <li><a class="linkcard" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">
+          <div><div class="t">Hotel Arina HakataTaihaku（Googleマップ）</div><div class="u">公式サイトなし・地図で表示</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://nokonoshima.com/" target="_blank" rel="noopener">
+          <div><div class="t">のこのしまアイランドパーク</div><div class="u">nokonoshima.com</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://www.innthepark.jp/fukuoka/" target="_blank" rel="noopener">
+          <div><div class="t">INN THE PARK 福岡</div><div class="u">innthepark.jp</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://annex-umine.com/" target="_blank" rel="noopener">
+          <div><div class="t">別館うみね</div><div class="u">annex-umine.com</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+      </ul>
+    </div>
+
+    <div class="cost-group">
+      <h3>そのほかのリンク</h3>
+      <ul class="linklist">
+        <li><a class="linkcard" href="https://hearts81.com/bs/" target="_blank" rel="noopener">
+          <div><div class="t">HEARTSバスステーション博多</div><div class="u">hearts81.com</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="http://www.beppu-jigoku.com/" target="_blank" rel="noopener">
+          <div><div class="t">べっぷ地獄めぐり 公式サイト</div><div class="u">beppu-jigoku.com</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://www.city.fukuoka.lg.jp/kowan/kyakusen/hakata-port/hyo.html" target="_blank" rel="noopener">
+          <div><div class="t">福岡市営渡船（能古航路）時刻表・運賃</div><div class="u">city.fukuoka.lg.jp</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://maps.app.goo.gl/53sD5E1pRYR3aFNc9?g_st=il" target="_blank" rel="noopener">
+          <div><div class="t">Day2：ホテル→能古島 ルート</div><div class="u">Google マップ</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://maps.app.goo.gl/cn2CcgkiFeq7N5qk8?g_st=il" target="_blank" rel="noopener">
+          <div><div class="t">Day3：能古島→HEARTS博多 ルート</div><div class="u">Google マップ</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+        <li><a class="linkcard" href="https://maps.app.goo.gl/9svvEvkVCgnEQ5ht5?g_st=il" target="_blank" rel="noopener">
+          <div><div class="t">Day4：HEARTS博多→別館うみね ルート</div><div class="u">Google マップ</div></div>
+          <span class="arrow">→</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="day" id="settings">
+    <div class="section-head">
+      <div class="badge">⚙</div>
+      <div><h2>表示設定</h2><p>色・文字サイズ・書体をお好みに変更できます</p></div>
+    </div>
+
+    <div class="setting-group">
+      <h3>テーマカラー</h3>
+      <p class="desc">タブや見出しの色を変更します</p>
+      <div class="swatches" id="theme-swatches">
+        <button class="swatch active" data-theme="blue" style="background:#2563EB" aria-label="ブルー"></button>
+        <button class="swatch" data-theme="teal" style="background:#0D9488" aria-label="ティール"></button>
+        <button class="swatch" data-theme="green" style="background:#16A34A" aria-label="グリーン"></button>
+        <button class="swatch" data-theme="purple" style="background:#7C3AED" aria-label="パープル"></button>
+        <button class="swatch" data-theme="slate" style="background:#334155" aria-label="スレート"></button>
+        <button class="swatch" data-theme="rose" style="background:#E11D48" aria-label="ローズ"></button>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <h3>文字の大きさ</h3>
+      <p class="desc">本文の文字サイズを変更します</p>
+      <div class="segmented" id="size-segmented">
+        <button data-size="small">小</button>
+        <button data-size="medium" class="active">中</button>
+        <button data-size="large">大</button>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <h3>書体</h3>
+      <p class="desc">見出し・本文のフォントを変更します</p>
+      <div class="segmented" id="font-segmented">
+        <button data-font="gothic" class="active">ゴシック体</button>
+        <button data-font="rounded">丸ゴシック</button>
+        <button data-font="mincho">明朝体</button>
+      </div>
+    </div>
+
+    <button class="resetbtn" id="resetbtn">初期設定（青・中・ゴシック体）に戻す</button>
+
+    <div class="setting-note" style="margin-top:1.1rem;">この設定はこのページを開いている間だけ有効です。ページを閉じたり再読み込みすると初期状態に戻ります。</div>
+  </section>
+
+</main>
+
+<footer>
+  この行程表はGoogleマップで確認済みのルート・時刻をもとに作成しています。バス・フェリーは道路状況等で変わる場合があるため、利用直前に各リンク先で最新情報をご確認ください。「未定」の項目は当日決める前提でそのまま記載しています。<br>
+  作成日：2026年8月15日
+</footer>
+
+<script>
+  // ---- tab switching ----
+  const buttons = document.querySelectorAll('#tabs button');
+  const sections = document.querySelectorAll('section.day');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+  document.getElementById('gearbtn').addEventListener('click', () => {
+    document.querySelector('#tabs button[data-target="settings"]').click();
+  });
+
+  // ---- settings: theme color ----
+  const THEMES = {
+    blue:   {primary:'#2563EB', dark:'#1D4ED8', tint:'#EFF6FF'},
+    teal:   {primary:'#0D9488', dark:'#0F766E', tint:'#F0FDFA'},
+    green:  {primary:'#16A34A', dark:'#15803D', tint:'#F0FDF4'},
+    purple: {primary:'#7C3AED', dark:'#6D28D9', tint:'#F5F3FF'},
+    slate:  {primary:'#334155', dark:'#1E293B', tint:'#F1F5F9'},
+    rose:   {primary:'#E11D48', dark:'#BE123C', tint:'#FFF1F2'},
+  };
+  const root = document.documentElement;
+  document.querySelectorAll('#theme-swatches .swatch').forEach(sw => {
+    sw.addEventListener('click', () => {
+      const t = THEMES[sw.dataset.theme];
+      root.style.setProperty('--primary', t.primary);
+      root.style.setProperty('--primary-dark', t.dark);
+      root.style.setProperty('--primary-tint', t.tint);
+      document.querySelectorAll('#theme-swatches .swatch').forEach(s => s.classList.remove('active'));
+      sw.classList.add('active');
+    });
+  });
+
+  // ---- settings: text size ----
+  const SIZES = {small:'15px', medium:'16px', large:'18px'};
+  document.querySelectorAll('#size-segmented button').forEach(b => {
+    b.addEventListener('click', () => {
+      root.style.fontSize = SIZES[b.dataset.size];
+      document.querySelectorAll('#size-segmented button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+
+  // ---- settings: font family ----
+  const FONTS = {
+    gothic:  "'Noto Sans JP',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif",
+    mincho:  "'Noto Serif JP',serif",
+    rounded: "'M PLUS Rounded 1c',-apple-system,sans-serif",
+  };
+  document.querySelectorAll('#font-segmented button').forEach(b => {
+    b.addEventListener('click', () => {
+      root.style.setProperty('--font-body', FONTS[b.dataset.font]);
+      document.querySelectorAll('#font-segmented button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+
+  // ---- reset ----
+  document.getElementById('resetbtn').addEventListener('click', () => {
+    root.style.removeProperty('--primary');
+    root.style.removeProperty('--primary-dark');
+    root.style.removeProperty('--primary-tint');
+    root.style.removeProperty('font-size');
+    root.style.removeProperty('--font-body');
+    document.querySelectorAll('#theme-swatches .swatch').forEach(s => s.classList.remove('active'));
+    document.querySelector('#theme-swatches .swatch[data-theme="blue"]').classList.add('active');
+    document.querySelectorAll('#size-segmented button').forEach(x => x.classList.remove('active'));
+    document.querySelector('#size-segmented button[data-size="medium"]').classList.add('active');
+    document.querySelectorAll('#font-segmented button').forEach(x => x.classList.remove('active'));
+    document.querySelector('#font-segmented button[data-font="gothic"]').classList.add('active');
+  });
+</script>
+
+</body>
+</html>
