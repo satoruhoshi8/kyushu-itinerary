@@ -524,11 +524,12 @@
 
     <div class="staycard">
       <div class="when">8/23（日）泊　1泊目</div>
-      <a class="name placelink maplink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a>
+      <a class="name placelink gated-link" href="#" data-href="https://connect.hotelsmart.jp/register/AAABbuGYTpLsQHHvuPRr8IqO8yVNb-XpoL8?page=Terminal">Hotel Arina HakataTaihaku 🔒</a>
       <div class="addr">〒812-0033 福岡市博多区大博町6-6／チェックイン15:00〜0:30</div>
       <div class="price">3人で12,150円・素泊まり</div>
       <div class="actions">
-        <a class="linkbtn sitebtn" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">📍 Googleマップで開く</a>
+        <a class="linkbtn sitebtn gated-link" href="#" data-href="https://connect.hotelsmart.jp/register/AAABbuGYTpLsQHHvuPRr8IqO8yVNb-XpoL8?page=Terminal">🔒 事前チェックインを開く</a>
+        <a class="linkbtn" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">📍 Googleマップで開く</a>
       </div>
     </div>
 
@@ -637,8 +638,8 @@
     <div class="cost-group">
       <h3>宿泊先 公式サイト</h3>
       <ul class="linklist">
-        <li><a class="linkcard" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">
-          <div><div class="t">Hotel Arina HakataTaihaku（Googleマップ）</div><div class="u">公式サイトなし・地図で表示</div></div>
+        <li><a class="linkcard gated-link" href="#" data-href="https://connect.hotelsmart.jp/register/AAABbuGYTpLsQHHvuPRr8IqO8yVNb-XpoL8?page=Terminal">
+          <div><div class="t">🔒 Hotel Arina HakataTaihaku（事前チェックイン）</div><div class="u">connect.hotelsmart.jp／要パスワード</div></div>
           <span class="arrow">→</span>
         </a></li>
         <li><a class="linkcard" href="https://nokonoshima.com/" target="_blank" rel="noopener">
@@ -756,6 +757,21 @@
   document.querySelectorAll('.daynav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelector(`#tabs button[data-target="${btn.dataset.goto}"]`).click();
+    });
+  });
+
+  // ---- password-gated links (casual-click guard only, not real security) ----
+  const GATE_PASSWORD = '4558';
+  document.querySelectorAll('.gated-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const input = prompt('パスワードを入力してください');
+      if (input === null) return;
+      if (input === GATE_PASSWORD) {
+        window.open(link.dataset.href, '_blank', 'noopener');
+      } else {
+        alert('パスワードが違います');
+      }
     });
   });
 
