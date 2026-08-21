@@ -23,6 +23,12 @@
     --ok-tint:#F0FDF4;
     --ok:#15803D;
     --font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --radius-sm:.5rem;
+    --radius-md:.75rem;
+    --radius-lg:1.25rem;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+    --shadow-md:0 3px 10px rgba(0,0,0,.06);
+    --shadow-lg:0 10px 28px rgba(0,0,0,.12);
   }
   *{box-sizing:border-box;}
   html{font-size:16px;}
@@ -37,34 +43,45 @@
 
   /* header */
   header.top{
-    background:var(--primary);
+    background:linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background-image:
+      linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 2px, transparent 2px 14px);
     color:#fff;
-    padding:1.1rem 1.15rem 1rem;
+    padding:1.2rem 1.15rem 1.3rem;
+    border-radius:0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow:var(--shadow-lg);
   }
   header.top .row{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
   header.top .eyebrow{
-    font-size:.7rem; letter-spacing:.08em; opacity:.85; margin:0 0 .3rem;
+    font-size:.7rem; letter-spacing:.1em; opacity:.85; margin:0 0 .35rem;
     font-weight:700; text-transform:uppercase;
   }
   header.top h1{
-    font-size:1.35rem; margin:0 0 .5rem; line-height:1.35; font-weight:900;
+    font-size:1.4rem; margin:0 0 .55rem; line-height:1.35; font-weight:900; letter-spacing:-.01em;
   }
-  header.top .meta{font-size:.8rem; opacity:.92; line-height:1.75;}
+  header.top .meta{font-size:.8rem; opacity:.94; line-height:1.85;}
   header.top .meta b{font-weight:700;}
+  .pill-inv{
+    display:inline-block; background:rgba(255,255,255,.18); padding:.08rem .55rem;
+    border-radius:999px; font-size:.72rem; font-weight:700; margin-left:.3rem;
+  }
   .gearbtn{
-    flex:0 0 auto; width:2.1rem; height:2.1rem; border-radius:.6rem;
+    flex:0 0 auto; width:2.2rem; height:2.2rem; border-radius:var(--radius-sm);
     background:rgba(255,255,255,0.16); border:none; color:#fff;
     font-size:1.05rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:background .15s ease, transform .12s ease;
   }
-  .gearbtn:active{background:rgba(255,255,255,0.3);}
+  .gearbtn:active{background:rgba(255,255,255,0.32); transform:scale(.94);}
 
   /* tab nav */
   nav.tabs{
     position:sticky; top:0; z-index:50;
     background:var(--card);
     border-bottom:1px solid var(--border);
+    box-shadow:0 2px 8px rgba(0,0,0,.03);
     display:flex; gap:.4rem; overflow-x:auto;
-    padding:.6rem .75rem;
+    padding:.7rem .75rem;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
   }
@@ -79,27 +96,32 @@
     padding:.5rem .9rem;
     white-space:nowrap;
     cursor:pointer;
+    transition:background .15s ease, color .15s ease, box-shadow .15s ease, transform .12s ease;
   }
+  nav.tabs button:active{transform:scale(.95);}
   nav.tabs button .d{display:block; font-size:.6rem; font-weight:500; opacity:.8; margin-top:1px;}
   nav.tabs button.active{
     background:var(--primary); color:#fff; border-color:var(--primary);
+    box-shadow:0 3px 10px color-mix(in srgb, var(--primary) 45%, transparent);
   }
 
-  main{max-width:640px; margin:0 auto; padding:1.1rem 1rem .5rem;}
+  main{max-width:640px; margin:0 auto; padding:1.3rem 1rem .5rem;}
   section.day{display:none;}
   section.day.active{display:block; animation:fade .3s ease;}
   @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
 
   /* section head */
-  .section-head{display:flex; align-items:center; gap:.85rem; margin:.2rem 0 1.15rem;}
+  .section-head{display:flex; align-items:center; gap:.9rem; margin:.2rem 0 1.25rem;}
   .badge{
-    width:2.9rem; height:2.9rem; flex:0 0 auto; border-radius:.85rem;
-    background:var(--primary); color:#fff;
+    width:2.9rem; height:2.9rem; flex:0 0 auto; border-radius:var(--radius-sm);
+    background:linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color:#fff;
     display:flex; align-items:center; justify-content:center;
     font-size:1.15rem; font-weight:900;
+    box-shadow:0 3px 8px color-mix(in srgb, var(--primary) 40%, transparent);
   }
   .badge .sub{display:none;}
-  .section-head h2{font-size:1.15rem; margin:0 0 .15rem; font-weight:900; color:var(--ink);}
+  .section-head h2{font-size:1.18rem; margin:0 0 .15rem; font-weight:900; color:var(--ink); letter-spacing:-.01em;}
   .section-head p{margin:0; font-size:.8rem; color:var(--ink-soft);}
 
   /* timeline */
@@ -108,16 +130,17 @@
     content:""; position:absolute; left:.33rem; top:.4rem; bottom:.4rem;
     width:2px; background:var(--border);
   }
-  .stop{position:relative; margin-bottom:.95rem;}
+  .stop{position:relative; margin-bottom:1rem;}
   .stop::before{
     content:""; position:absolute; left:-1.35rem; top:.32rem;
     width:.7rem; height:.7rem; border-radius:50%;
     background:var(--primary); border:2px solid var(--bg);
+    box-shadow:0 0 0 3px var(--primary-tint);
   }
-  .stop.undecided::before{background:var(--card); border:2px solid var(--border);}
+  .stop.undecided::before{background:var(--card); border:2px solid var(--border); box-shadow:none;}
   .stop .time{
     font-weight:700; font-size:.8rem; color:var(--primary-dark);
-    margin-bottom:.3rem; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;
+    margin-bottom:.35rem; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;
   }
   .stop.undecided .time{color:var(--ink-soft);}
   .tag{
@@ -125,14 +148,15 @@
     background:var(--ok-tint); color:var(--ok); letter-spacing:.02em;
   }
   .card{
-    background:var(--card); border:1px solid var(--border); border-left:3px solid var(--primary);
-    border-radius:.6rem; padding:.8rem .9rem;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
+    background:var(--card); border:1px solid var(--border); border-left:4px solid var(--primary);
+    border-radius:var(--radius-md); padding:.85rem .95rem;
+    box-shadow:var(--shadow-sm);
+    transition:box-shadow .15s ease;
   }
   .stop.undecided .card{
     border-left:3px dashed var(--border); background:transparent; box-shadow:none;
   }
-  .card h3{margin:0 0 .3rem; font-size:.92rem; font-weight:700; line-height:1.5;}
+  .card h3{margin:0 0 .3rem; font-size:.92rem; font-weight:700; line-height:1.55;}
   .stop.undecided .card h3{color:var(--ink-soft); font-weight:500;}
   .card p{margin:0; font-size:.8rem; line-height:1.65; color:var(--ink-soft);}
   .card p + p{margin-top:.4rem;}
@@ -140,9 +164,10 @@
     display:inline-flex; align-items:center; gap:.3rem;
     margin-top:.5rem; font-size:.78rem; font-weight:700;
     color:var(--primary); text-decoration:none;
-    background:var(--primary-tint); padding:.4rem .7rem; border-radius:.5rem;
+    background:var(--primary-tint); padding:.45rem .75rem; border-radius:var(--radius-sm);
+    transition:filter .15s ease, transform .12s ease;
   }
-  .linkbtn:active{filter:brightness(0.95);}
+  .linkbtn:active{filter:brightness(0.95); transform:scale(.96);}
   .placelink{
     color:var(--primary); font-weight:700; text-decoration:none;
     border-bottom:1.5px solid var(--primary-tint);
@@ -153,63 +178,66 @@
 
   .note-inline{
     margin-top:.5rem; font-size:.75rem; color:var(--warn); background:var(--warn-tint);
-    padding:.5rem .6rem; border-radius:.5rem; line-height:1.6;
+    padding:.5rem .6rem; border-radius:var(--radius-sm); line-height:1.6;
   }
 
   /* day-to-day navigation */
-  .daynav{display:flex; gap:.6rem; margin-top:1.4rem; padding-top:1rem; border-top:1px solid var(--border);}
+  .daynav{display:flex; gap:.6rem; margin-top:1.5rem; padding-top:1.1rem; border-top:1px solid var(--border);}
   .daynav-btn{
     flex:1; display:flex; align-items:center; justify-content:center; gap:.3rem;
     font-family:inherit; font-size:.8rem; font-weight:700; color:var(--primary);
-    background:var(--primary-tint); border:1px solid var(--border); border-radius:.6rem;
-    padding:.75rem .5rem; cursor:pointer;
+    background:var(--primary-tint); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:.8rem .5rem; cursor:pointer;
+    transition:background .15s ease, color .15s ease, transform .12s ease;
   }
-  .daynav-btn:active{background:var(--primary); color:#fff; border-color:var(--primary);}
+  .daynav-btn:active{background:var(--primary); color:#fff; border-color:var(--primary); transform:scale(.97);}
 
   /* stay list */
   .staycard{
-    background:var(--card); border:1px solid var(--border); border-radius:.75rem;
-    padding:.9rem 1rem; margin-bottom:.75rem;
-    box-shadow:0 1px 3px rgba(0,0,0,.05);
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:1rem 1.05rem; margin-bottom:.8rem;
+    box-shadow:var(--shadow-sm);
   }
   .staycard .when{
     font-size:.7rem; font-weight:700; color:var(--primary-dark);
-    letter-spacing:.02em; margin-bottom:.25rem;
+    letter-spacing:.02em; margin-bottom:.3rem;
   }
-  .staycard .name{font-size:1rem; font-weight:700; margin-bottom:.3rem; display:block;}
+  .staycard .name{font-size:1.02rem; font-weight:700; margin-bottom:.3rem; display:block;}
   .staycard .addr{font-size:.78rem; color:var(--ink-soft); line-height:1.6; margin-bottom:.5rem;}
-  .staycard .price{font-size:.8rem; font-weight:700; color:var(--ink); margin-bottom:.6rem;}
+  .staycard .price{font-size:.8rem; font-weight:700; color:var(--ink); margin-bottom:.65rem;}
   .staycard .actions{display:flex; gap:.5rem; flex-wrap:wrap;}
   .staycard .linkbtn{margin-top:0;}
-  .sitebtn{background:var(--primary); color:#fff;}
+  .sitebtn{background:var(--primary); color:#fff; box-shadow:0 2px 6px color-mix(in srgb, var(--primary) 35%, transparent);}
   .sitebtn:active{background:var(--primary-dark);}
 
   /* cost */
-  .cost-group{margin-bottom:1.25rem;}
+  .cost-group{margin-bottom:1.3rem;}
   .cost-group h3{
     font-size:.95rem; color:var(--ink); font-weight:700;
     margin:0 0 .5rem; padding-bottom:.4rem; border-bottom:1px solid var(--border);
   }
   .cost-row{
     display:flex; justify-content:space-between; gap:.6rem;
-    padding:.55rem 0; border-bottom:1px dashed var(--border-soft);
+    padding:.6rem 0; border-bottom:1px dashed var(--border-soft);
   }
   .cost-row:last-of-type{border-bottom:none;}
   .cost-row .label{font-size:.82rem; font-weight:700;}
   .cost-row .memo{font-size:.7rem; color:var(--ink-soft); margin-top:.15rem; line-height:1.5;}
   .cost-row .amt{font-size:.82rem; font-weight:700; white-space:nowrap; padding-left:.5rem;}
-  .cost-sub{display:flex; justify-content:space-between; padding-top:.5rem; font-size:.8rem; font-weight:700; color:var(--ink);}
+  .cost-sub{display:flex; justify-content:space-between; padding-top:.55rem; font-size:.8rem; font-weight:700; color:var(--ink);}
   .grand{
-    background:var(--primary); color:#fff; border-radius:.75rem; padding:1rem 1.1rem; margin-top:.4rem;
+    background:linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color:#fff; border-radius:var(--radius-md); padding:1.05rem 1.15rem; margin-top:.5rem;
+    box-shadow:0 6px 16px color-mix(in srgb, var(--primary) 35%, transparent);
   }
   .grand .row{display:flex; justify-content:space-between; align-items:baseline; padding:.3rem 0;}
-  .grand .row.total .amt{font-size:1.35rem; font-weight:900;}
+  .grand .row.total .amt{font-size:1.4rem; font-weight:900;}
   .grand .row .label{font-size:.78rem; opacity:.9;}
   .grand .row .amt{font-weight:700;}
 
   .infobox{
-    background:var(--primary-tint); border:1px solid var(--border); border-radius:.6rem;
-    padding:.75rem .85rem; font-size:.76rem; line-height:1.7; color:var(--ink); margin-bottom:1.1rem;
+    background:var(--primary-tint); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:.8rem .9rem; font-size:.76rem; line-height:1.7; color:var(--ink); margin-bottom:1.15rem;
   }
   .infobox b{color:var(--primary-dark);}
 
@@ -218,15 +246,18 @@
   .linklist li{margin-bottom:.6rem;}
   .linkcard{
     display:flex; justify-content:space-between; align-items:center; gap:.6rem;
-    background:var(--card); border:1px solid var(--border); border-radius:.6rem;
-    padding:.8rem .85rem; text-decoration:none; color:var(--ink);
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:.85rem .9rem; text-decoration:none; color:var(--ink);
+    box-shadow:var(--shadow-sm);
+    transition:transform .12s ease, box-shadow .15s ease;
   }
+  .linkcard:active{transform:scale(.98);}
   .linkcard .t{font-size:.83rem; font-weight:700;}
   .linkcard .u{font-size:.68rem; color:var(--primary); word-break:break-all; margin-top:.15rem;}
   .linkcard .arrow{color:var(--primary); font-size:1rem; flex:0 0 auto;}
   .phonecard{
-    background:var(--card); border:1px solid var(--border); border-radius:.6rem;
-    padding:.8rem .85rem; font-size:.8rem; margin-bottom:.6rem;
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:.85rem .9rem; font-size:.8rem; margin-bottom:.6rem;
   }
   .phonecard .t{font-weight:700; margin-bottom:.2rem;}
 
@@ -238,30 +269,35 @@
   .swatch{
     width:2.6rem; height:2.6rem; border-radius:50%; border:2px solid transparent;
     cursor:pointer; position:relative; padding:0;
+    transition:transform .12s ease;
   }
+  .swatch:active{transform:scale(.9);}
   .swatch.active{border-color:var(--ink);}
   .swatch.active::after{
     content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
     color:#fff; font-size:1.05rem; font-weight:900;
   }
-  .segmented{display:flex; background:var(--bg); border:1px solid var(--border); border-radius:.6rem; padding:.2rem; gap:.2rem;}
+  .segmented{display:flex; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:.2rem; gap:.2rem;}
   .segmented button{
     flex:1; font-family:inherit; font-size:.82rem; font-weight:700; color:var(--ink-soft);
     background:transparent; border:none; border-radius:.45rem; padding:.5rem 0; cursor:pointer;
+    transition:background .15s ease, color .15s ease;
   }
-  .segmented button.active{background:var(--card); color:var(--primary); box-shadow:0 1px 2px rgba(0,0,0,0.08);}
+  .segmented button.active{background:var(--card); color:var(--primary); box-shadow:0 1px 3px rgba(0,0,0,0.1);}
   .setting-note{
     font-size:.72rem; color:var(--ink-soft); background:var(--bg); border:1px solid var(--border);
-    border-radius:.6rem; padding:.7rem .8rem; line-height:1.7;
+    border-radius:var(--radius-sm); padding:.7rem .8rem; line-height:1.7;
   }
   .resetbtn{
     margin-top:.3rem; font-size:.78rem; font-weight:700; color:var(--ink-soft);
-    background:var(--card); border:1px solid var(--border); border-radius:.5rem;
-    padding:.5rem .9rem; cursor:pointer;
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:.55rem .95rem; cursor:pointer;
+    transition:background .15s ease, transform .12s ease;
   }
+  .resetbtn:active{transform:scale(.96);}
 
   footer{
-    max-width:640px; margin:1.2rem auto 0; padding:1rem 1.15rem 0;
+    max-width:640px; margin:1.3rem auto 0; padding:1rem 1.15rem 0;
     font-size:.68rem; color:var(--ink-soft); line-height:1.8; border-top:1px solid var(--border);
   }
 </style>
@@ -275,7 +311,7 @@
       <h1>九州旅行 確定行程</h1>
       <div class="meta">
         福岡・能古島・別府　男3人旅<br>
-        <b>2026年8月23日（日）〜27日（木）</b>　4泊5日<br>
+        <b>2026年8月23日（日）〜27日（木）</b><span class="pill-inv">4泊5日</span><br>
         出発地：新千歳空港
       </div>
     </div>
@@ -306,27 +342,27 @@
     <div class="timeline">
       <div class="stop">
         <div class="time">09:20</div>
-        <div class="card"><h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=新千歳空港" target="_blank" rel="noopener">新千歳空港</a> 集合</h3><p>国内線のため出発60〜90分前を目安に。</p></div>
+        <div class="card"><h3>✈️ <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=新千歳空港" target="_blank" rel="noopener">新千歳空港</a> 集合</h3><p>国内線のため出発60〜90分前を目安に。</p></div>
       </div>
       <div class="stop">
-        <div class="time">10:50 <span class="tag">予約済み</span></div>
-        <div class="card"><h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=新千歳空港" target="_blank" rel="noopener">新千歳空港</a> 発</h3><p>1人往復18,000円で予約済み。</p></div>
+        <div class="time">10:50 <span class="tag">✅ 予約済み</span></div>
+        <div class="card"><h3>✈️ <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=新千歳空港" target="_blank" rel="noopener">新千歳空港</a> 発</h3><p>1人往復18,000円で予約済み。</p></div>
       </div>
       <div class="stop">
         <div class="time">13:25</div>
-        <div class="card"><h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港</a> 着</h3></div>
+        <div class="card"><h3>✈️ <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港</a> 着</h3></div>
       </div>
       <div class="stop">
         <div class="time">13:25〜15:00</div>
         <div class="card">
-          <h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a></h3>
+          <h3>🚇 <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a></h3>
           <p>地下鉄空港線で博多駅方面へ。チェックインは15:00からなので、道中や博多駅周辺で自由行動を挟んでもOK。</p>
         </div>
       </div>
       <div class="stop">
         <div class="time">15:00</div>
         <div class="card">
-          <h3>ホテル チェックイン</h3>
+          <h3>🏨 ホテル チェックイン</h3>
           <p><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Arina%20HakataTaihaku%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E5%A4%A7%E5%8D%9A%E7%94%BA6-6" target="_blank" rel="noopener">Hotel Arina HakataTaihaku</a>　〒812-0033 福岡市博多区大博町6-6</p>
           <p>チェックイン15:00〜0:30／チェックアウト0:00〜10:00</p>
         </div>
@@ -350,12 +386,12 @@
     <div class="timeline">
       <div class="stop">
         <div class="time">10:00</div>
-        <div class="card"><h3>ホテル チェックアウト</h3></div>
+        <div class="card"><h3>🧳 ホテル チェックアウト</h3></div>
       </div>
       <div class="stop">
-        <div class="time">10:13 → 11:45 <span class="tag">Googleマップ確認済み</span></div>
+        <div class="time">10:13 → 11:45 <span class="tag">🗺️ Googleマップ確認済み</span></div>
         <div class="card">
-          <h3>ホテル → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=のこのしまアイランドパーク" target="_blank" rel="noopener">のこのしまアイランドパーク</a></h3>
+          <h3>⛴️ ホテル → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=のこのしまアイランドパーク" target="_blank" rel="noopener">のこのしまアイランドパーク</a></h3>
           <p>所要約1時間32分。</p>
           <a class="linkbtn" href="https://maps.app.goo.gl/53sD5E1pRYR3aFNc9?g_st=il" target="_blank" rel="noopener">→ ルートを開く</a>
         </div>
@@ -363,14 +399,14 @@
       <div class="stop">
         <div class="time">午後</div>
         <div class="card">
-          <h3>能古島でごはん、<a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=のこのしまアイランドパーク" target="_blank" rel="noopener">アイランドパーク</a>内で遊ぶ</h3>
+          <h3>🎡 能古島でごはん、<a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=のこのしまアイランドパーク" target="_blank" rel="noopener">アイランドパーク</a>内で遊ぶ</h3>
           <p>入園大人1,500円・営業9:00〜17:30（コテージ宿泊者は入園料込みの場合あり）</p>
         </div>
       </div>
       <div class="stop">
         <div class="time">15:00頃</div>
         <div class="card">
-          <h3>コテージ チェックイン</h3>
+          <h3>🏨 コテージ チェックイン</h3>
           <p><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=のこのしまアイランドパーク" target="_blank" rel="noopener">のこのしまアイランドパーク〈潮風〉</a>素泊まり／3人で16,000円</p>
         </div>
       </div>
@@ -394,27 +430,27 @@
     <div class="timeline">
       <div class="stop">
         <div class="time">9:00</div>
-        <div class="card"><h3>のこのしまアイランドパーク チェックアウト</h3></div>
+        <div class="card"><h3>🧳 のこのしまアイランドパーク チェックアウト</h3></div>
       </div>
       <div class="stop">
-        <div class="time">9:13 → 11:04 <span class="tag">Googleマップ確認済み</span></div>
+        <div class="time">9:13 → 11:04 <span class="tag">🗺️ Googleマップ確認済み</span></div>
         <div class="card">
-          <h3>アイランドパーク → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a></h3>
+          <h3>⛴️ アイランドパーク → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a></h3>
           <p>所要約1時間51分（フェリー＋乗り継ぎ）。</p>
           <a class="linkbtn" href="https://maps.app.goo.gl/cn2CcgkiFeq7N5qk8?g_st=il" target="_blank" rel="noopener">→ ルートを開く</a>
         </div>
       </div>
       <div class="stop">
-        <div class="time">11:40発 → 12:30着 <span class="tag">画像で確認済み</span></div>
+        <div class="time">11:40発 → 12:30着 <span class="tag">📷 画像で確認済み</span></div>
         <div class="card">
-          <h3><a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">無料シャトルバス</a>で <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=INN%20THE%20PARK%20福岡" target="_blank" rel="noopener">INN THE PARK</a> へ（案A）</h3>
+          <h3>🚌 <a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">無料シャトルバス</a>で <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=INN%20THE%20PARK%20福岡" target="_blank" rel="noopener">INN THE PARK</a> へ（案A）</h3>
           <p>「<a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a>」1階のりば発、所要50分（<a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">2026年夏季増便時刻表</a>）。</p>
         </div>
       </div>
       <div class="stop">
-        <div class="time">13:40発 → 14:30着 <span class="tag">画像で確認済み</span></div>
+        <div class="time">13:40発 → 14:30着 <span class="tag">📷 画像で確認済み</span></div>
         <div class="card">
-          <h3><a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">無料シャトルバス</a>で <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=INN%20THE%20PARK%20福岡" target="_blank" rel="noopener">INN THE PARK</a> へ（案B）</h3>
+          <h3>🚌 <a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">無料シャトルバス</a>で <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=INN%20THE%20PARK%20福岡" target="_blank" rel="noopener">INN THE PARK</a> へ（案B）</h3>
           <p>「HEARTSバスステーション博多」1階のりば発、所要50分（<a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">2026年夏季増便時刻表</a>）。</p>
           <p>案A・案Bどちらも実在の便です。どちらに乗るかはお好みで選んでください。</p>
         </div>
@@ -422,7 +458,7 @@
       <div class="stop">
         <div class="time">15:00〜</div>
         <div class="card">
-          <h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=INN%20THE%20PARK%20福岡" target="_blank" rel="noopener">INN THE PARK 福岡</a> チェックイン</h3>
+          <h3>🏨 <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=INN%20THE%20PARK%20福岡" target="_blank" rel="noopener">INN THE PARK 福岡</a> チェックイン</h3>
           <p>海の中道海浜公園内／2食付き（夕食BBQ＋朝食）／3人で49,200円</p>
         </div>
       </div>
@@ -442,40 +478,40 @@
     <div class="timeline">
       <div class="stop">
         <div class="time">10:00</div>
-        <div class="card"><h3>INN THE PARK チェックアウト</h3></div>
+        <div class="card"><h3>🧳 INN THE PARK チェックアウト</h3></div>
       </div>
       <div class="stop">
         <div class="time">10:30発 → 11:20頃着</div>
         <div class="card">
-          <h3><a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">無料シャトルバス</a>で <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a> へ</h3>
+          <h3>🚌 <a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">無料シャトルバス</a>で <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a> へ</h3>
           <p>所要50分（<a class="placelink" href="https://www.luigans.com/access/" target="_blank" rel="noopener">2026年夏季増便時刻表</a>）。</p>
         </div>
       </div>
       <div class="stop">
         <div class="time">〜12:20頃</div>
         <div class="card">
-          <h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港国際線ターミナル</a></h3>
+          <h3>🚇 <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=HEARTSバスステーション博多" target="_blank" rel="noopener">HEARTSバスステーション博多</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港国際線ターミナル</a></h3>
           <p>地下鉄等で移動。12:42発の高速バスに間に合うよう余裕を持って。</p>
         </div>
       </div>
       <div class="stop">
-        <div class="time">12:42発 → 14:32着予定 <span class="tag">予約済み</span></div>
+        <div class="time">12:42発 → 14:32着予定 <span class="tag">✅ 予約済み</span></div>
         <div class="card">
-          <h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港国際線ターミナル</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=鉄輪口" target="_blank" rel="noopener">鉄輪口</a></h3>
+          <h3>🚌 <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港国際線ターミナル</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=鉄輪口" target="_blank" rel="noopener">鉄輪口</a></h3>
           <p>高速バス「福岡・福岡空港〜別府線（ノンストップ）」47908便。ハイウェイバスドットコムで往復予約済み。</p>
         </div>
       </div>
       <div class="stop">
         <div class="time">午後</div>
         <div class="card">
-          <h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=別府地獄めぐり" target="_blank" rel="noopener">べっぷ地獄めぐり</a></h3>
+          <h3>🌋 <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=別府地獄めぐり" target="_blank" rel="noopener">べっぷ地獄めぐり</a></h3>
           <p>共通観覧券 大人2,400円（7ヶ所、営業8:00〜17:00、当日購入可）</p>
         </div>
       </div>
       <div class="stop">
         <div class="time">15:00〜19:00</div>
         <div class="card">
-          <h3>宿 チェックイン</h3>
+          <h3>🏨 宿 チェックイン</h3>
           <p><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=大分県別府市大字鉄輪字山ノ上580-1" target="_blank" rel="noopener">別館うみね</a>　大分県別府市大字鉄輪字山ノ上580-1</p>
           <p>夕朝食付き／3人で72,090円</p>
         </div>
@@ -495,19 +531,19 @@
     </div>
     <div class="timeline">
       <div class="stop">
-        <div class="time">09:47発 → 11:43着予定 <span class="tag">予約済み</span></div>
+        <div class="time">09:47発 → 11:43着予定 <span class="tag">✅ 予約済み</span></div>
         <div class="card">
-          <h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=鉄輪口" target="_blank" rel="noopener">鉄輪バス停</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港国際線ターミナル</a></h3>
+          <h3>🚌 <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=鉄輪口" target="_blank" rel="noopener">鉄輪バス停</a> → <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港国際線ターミナル</a></h3>
           <p>高速バス「福岡・福岡空港〜別府線（ノンストップ）」47905便。ハイウェイバスドットコムで往復予約済み。</p>
         </div>
       </div>
       <div class="stop">
-        <div class="time">14:00 <span class="tag">予約済み</span></div>
-        <div class="card"><h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港</a> 発</h3><p>バス到着（11:43）から約2時間15分の余裕あり。</p></div>
+        <div class="time">14:00 <span class="tag">✅ 予約済み</span></div>
+        <div class="card"><h3>✈️ <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=福岡空港国際線ターミナル" target="_blank" rel="noopener">福岡空港</a> 発</h3><p>バス到着（11:43）から約2時間15分の余裕あり。</p></div>
       </div>
       <div class="stop">
         <div class="time">到着後</div>
-        <div class="card"><h3><a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=新千歳空港" target="_blank" rel="noopener">新千歳空港</a> 着・解散</h3><p>4泊5日の九州旅行、お疲れさまでした。</p></div>
+        <div class="card"><h3>✈️ <a class="placelink maplink" href="https://www.google.com/maps/search/?api=1&query=新千歳空港" target="_blank" rel="noopener">新千歳空港</a> 着・解散</h3><p>4泊5日の九州旅行、お疲れさまでした。</p></div>
       </div>
     </div>
     <div class="daynav">
