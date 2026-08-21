@@ -4,26 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>九州旅行 確定行程｜男3人旅</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#12151C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="九州旅行">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --primary:#2B3138;
-    --primary-dark:#1B1F24;
-    --primary-tint:#F1EFEC;
-    --ink:#211F1D;
-    --ink-soft:#7A756D;
-    --bg:#FAF8F5;
-    --card:#FFFFFF;
-    --border:#E6E2DC;
-    --border-soft:#F1EEEA;
+    --primary:#22C6A0;
+    --primary-dark:#1AA688;
+    --primary-tint:#16332C;
+    --ink:#F3F5F7;
+    --ink-soft:#8B93A3;
+    --bg:#12151C;
+    --card:#1B2029;
+    --border:#2A3038;
+    --border-soft:#232830;
     --font-body:'Noto Sans JP',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    --font-serif:'Noto Serif JP',serif;
-    --radius-sm:.5rem;
-    --radius-md:.75rem;
-    --shadow-sm:0 1px 2px rgba(0,0,0,.05);
-    --shadow-md:0 3px 10px rgba(0,0,0,.06);
+    --radius-sm:.6rem;
+    --radius-md:.9rem;
+    --shadow-sm:0 1px 3px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box;}
   html{font-size:16px;}
@@ -43,68 +48,64 @@
     flex:0 0 auto;
   }
   .badge .icon{width:1.3rem; height:1.3rem; vertical-align:middle;}
-  .gearbtn .icon{width:1.05rem; height:1.05rem;}
+  .gearbtn .icon{width:1rem; height:1rem;}
 
   /* header */
   header.top{
-    background:var(--primary);
-    color:#F7F5F2;
-    padding:1.2rem 1.15rem 1.3rem;
-    border-radius:0 0 var(--radius-md) var(--radius-md);
-    box-shadow:var(--shadow-md);
+    padding:1.3rem 1.15rem 1rem;
   }
   header.top .row{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
   header.top .eyebrow{
-    font-size:.68rem; letter-spacing:.14em; opacity:.65; margin:0 0 .4rem;
-    font-weight:600; text-transform:uppercase;
+    font-size:.68rem; letter-spacing:.14em; color:var(--primary); margin:0 0 .4rem;
+    font-weight:700; text-transform:uppercase;
   }
   header.top h1{
-    font-family:var(--font-serif);
-    font-size:1.4rem; margin:0 0 .6rem; line-height:1.4; font-weight:700; letter-spacing:.01em;
+    font-size:1.35rem; margin:0 0 .55rem; line-height:1.4; font-weight:900; color:var(--ink);
   }
-  header.top .meta{font-size:.79rem; opacity:.85; line-height:1.9;}
-  header.top .meta b{font-weight:700; opacity:1;}
+  header.top .meta{font-size:.79rem; color:var(--ink-soft); line-height:1.9;}
+  header.top .meta b{font-weight:700; color:var(--ink);}
   .pill-inv{
-    display:inline-block; background:transparent; border:1px solid rgba(247,245,242,.35);
-    padding:.06rem .5rem; border-radius:999px; font-size:.68rem; font-weight:600; margin-left:.35rem;
+    display:inline-block; background:transparent; border:1px solid var(--primary);
+    color:var(--primary);
+    padding:.06rem .5rem; border-radius:999px; font-size:.68rem; font-weight:700; margin-left:.35rem;
   }
-  .header-actions{display:flex; flex-direction:column; gap:.5rem; flex:0 0 auto;}
+  .header-actions{display:flex; flex-wrap:wrap; gap:.45rem; justify-content:flex-end; max-width:9.5rem; flex:0 0 auto;}
   .gearbtn{
-    width:2.15rem; height:2.15rem; border-radius:var(--radius-sm);
-    background:rgba(247,245,242,0.12); border:1px solid rgba(247,245,242,.18); color:#F7F5F2;
+    width:1.95rem; height:1.95rem; border-radius:var(--radius-sm);
+    background:transparent; border:1px solid var(--border); color:var(--ink-soft);
     cursor:pointer; display:flex; align-items:center; justify-content:center;
     text-decoration:none;
-    transition:background .15s ease, transform .12s ease;
+    transition:background .15s ease, transform .12s ease, color .15s ease, border-color .15s ease;
   }
-  .gearbtn:active{background:rgba(247,245,242,0.24); transform:scale(.94);}
+  .gearbtn:active{transform:scale(.92);}
+  .gearbtn.active{background:var(--primary); border-color:var(--primary); color:var(--bg);}
 
   /* tab nav */
   nav.tabs{
     position:sticky; top:0; z-index:50;
     background:var(--card);
-    border-bottom:1px solid var(--border);
-    display:flex; gap:.4rem; overflow-x:auto;
-    padding:.7rem .75rem;
+    border-bottom:1px solid var(--border-soft);
+    display:flex; gap:.1rem; overflow-x:auto;
+    padding:0 .5rem;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
   }
   nav.tabs::-webkit-scrollbar{display:none;}
   nav.tabs button{
     flex:0 0 auto;
-    font-family:inherit; font-size:.8rem; font-weight:700;
+    font-family:inherit; font-size:.82rem; font-weight:700;
     color:var(--ink-soft);
-    background:var(--bg);
-    border:1px solid var(--border);
-    border-radius:999px;
-    padding:.5rem .9rem;
+    background:transparent;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:.75rem .75rem .65rem;
     white-space:nowrap;
     cursor:pointer;
-    transition:background .15s ease, color .15s ease, transform .12s ease;
+    transition:color .15s ease, border-color .15s ease;
   }
-  nav.tabs button:active{transform:scale(.96);}
   nav.tabs button .d{display:block; font-size:.6rem; font-weight:500; opacity:.75; margin-top:1px;}
   nav.tabs button.active{
-    background:var(--primary); color:#F7F5F2; border-color:var(--primary);
+    color:var(--ink); border-bottom-color:var(--primary);
   }
 
   main{max-width:640px; margin:0 auto; padding:1.3rem 1rem .5rem;}
@@ -117,12 +118,12 @@
   .badge{
     width:2.85rem; height:2.85rem; flex:0 0 auto; border-radius:var(--radius-sm);
     background:var(--primary);
-    color:#F7F5F2;
+    color:var(--bg);
     display:flex; align-items:center; justify-content:center;
-    font-size:1.1rem; font-weight:700;
+    font-size:1.1rem; font-weight:900;
   }
   .badge .sub{display:none;}
-  .section-head h2{font-family:var(--font-serif); font-size:1.15rem; margin:0 0 .18rem; font-weight:700; color:var(--ink);}
+  .section-head h2{font-size:1.15rem; margin:0 0 .18rem; font-weight:800; color:var(--ink);}
   .section-head p{margin:0; font-size:.8rem; color:var(--ink-soft);}
 
   /* timeline */
@@ -145,42 +146,43 @@
   }
   .stop.undecided .time{color:var(--ink-soft); font-weight:500;}
   .tag{
-    font-size:.62rem; font-weight:600; padding:.2rem .55rem; border-radius:999px;
+    font-size:.62rem; font-weight:700; padding:.2rem .55rem; border-radius:999px;
     background:var(--primary-tint); color:var(--primary); letter-spacing:.02em;
     display:inline-flex; align-items:center; gap:.25rem;
   }
   .card{
-    background:var(--card); border:1px solid var(--border);
+    background:var(--card); border:1px solid var(--border-soft);
     border-radius:var(--radius-md); padding:.85rem .95rem;
+    box-shadow:var(--shadow-sm);
   }
   .stop.undecided .card{
-    border:1.5px dashed var(--border); background:transparent;
+    border:1.5px dashed var(--border); background:transparent; box-shadow:none;
   }
   .card h3{margin:0 0 .3rem; font-size:.9rem; font-weight:700; line-height:1.55; color:var(--ink); display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;}
   .stop.undecided .card h3{color:var(--ink-soft); font-weight:500;}
   .card p{margin:0; font-size:.8rem; line-height:1.65; color:var(--ink-soft);}
   .card p + p{margin-top:.4rem;}
   .linkbtn{
-    display:inline-flex; align-items:center; gap:.35rem;
-    margin-top:.5rem; font-size:.76rem; font-weight:600;
-    color:var(--ink); text-decoration:none;
-    background:transparent; border:1px solid var(--border); padding:.42rem .7rem; border-radius:var(--radius-sm);
+    display:inline-flex; align-items:center; gap:.4rem;
+    margin-top:.5rem; font-size:.78rem; font-weight:700;
+    color:var(--primary); text-decoration:none;
+    background:transparent; border:1.5px solid var(--primary); padding:.5rem .85rem; border-radius:999px;
     transition:background .15s ease, transform .12s ease;
   }
-  .linkbtn:active{background:var(--border-soft); transform:scale(.97);}
+  .linkbtn:active{background:var(--primary-tint); transform:scale(.97);}
   .placelink{
-    color:var(--ink); font-weight:700; text-decoration:none;
-    border-bottom:1.5px solid var(--border);
+    color:var(--primary); font-weight:700; text-decoration:none;
+    border-bottom:1.5px solid color-mix(in srgb, var(--primary) 35%, transparent);
   }
-  .placelink:active{color:var(--primary);}
-  .placelink::after{content:" ↗"; font-size:.75em; font-weight:400; opacity:.55;}
+  .placelink:active{color:var(--primary-dark);}
+  .placelink::after{content:" ↗"; font-size:.75em; font-weight:400; opacity:.6;}
   .placelink.maplink::after{
     content:"";
     display:inline-block;
     width:.75em; height:.75em;
     margin-left:.2em;
     background-color:currentColor;
-    opacity:.55;
+    opacity:.75;
     -webkit-mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>');
     mask-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>');
     -webkit-mask-size:contain; mask-size:contain;
@@ -190,20 +192,21 @@
   }
 
   /* day-to-day navigation */
-  .daynav{display:flex; gap:.6rem; margin-top:1.5rem; padding-top:1.1rem; border-top:1px solid var(--border);}
+  .daynav{display:flex; gap:.6rem; margin-top:1.5rem; padding-top:1.1rem; border-top:1px solid var(--border-soft);}
   .daynav-btn{
     flex:1; display:flex; align-items:center; justify-content:center; gap:.3rem;
-    font-family:inherit; font-size:.8rem; font-weight:700; color:var(--ink);
-    background:transparent; border:1px solid var(--border); border-radius:var(--radius-md);
+    font-family:inherit; font-size:.8rem; font-weight:700; color:var(--primary);
+    background:transparent; border:1.5px solid var(--primary); border-radius:999px;
     padding:.75rem .5rem; cursor:pointer;
     transition:background .15s ease, transform .12s ease;
   }
-  .daynav-btn:active{background:var(--border-soft); transform:scale(.98);}
+  .daynav-btn:active{background:var(--primary-tint); transform:scale(.97);}
 
   /* stay list */
   .staycard{
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
+    background:var(--card); border:1px solid var(--border-soft); border-radius:var(--radius-md);
     padding:1rem 1.05rem; margin-bottom:.8rem;
+    box-shadow:var(--shadow-sm);
   }
   .staycard .when{
     font-size:.68rem; font-weight:700; color:var(--ink-soft);
@@ -214,35 +217,35 @@
   .staycard .price{font-size:.8rem; font-weight:700; color:var(--ink); margin-bottom:.65rem;}
   .staycard .actions{display:flex; gap:.5rem; flex-wrap:wrap;}
   .staycard .linkbtn{margin-top:0;}
-  .sitebtn{background:var(--primary); color:#F7F5F2; border-color:var(--primary);}
+  .sitebtn{background:var(--primary); color:var(--bg); border-color:var(--primary); font-weight:800;}
   .sitebtn:active{background:var(--primary-dark); border-color:var(--primary-dark);}
 
   /* cost */
   .cost-group{margin-bottom:1.3rem;}
   .cost-group h3{
     font-size:.92rem; color:var(--ink); font-weight:700;
-    margin:0 0 .5rem; padding-bottom:.4rem; border-bottom:1px solid var(--border);
+    margin:0 0 .5rem; padding-bottom:.4rem; border-bottom:1px solid var(--border-soft);
   }
   .cost-row{
     display:flex; justify-content:space-between; gap:.6rem;
     padding:.6rem 0; border-bottom:1px dashed var(--border-soft);
   }
   .cost-row:last-of-type{border-bottom:none;}
-  .cost-row .label{font-size:.82rem; font-weight:700;}
+  .cost-row .label{font-size:.82rem; font-weight:700; color:var(--ink);}
   .cost-row .memo{font-size:.7rem; color:var(--ink-soft); margin-top:.15rem; line-height:1.5;}
-  .cost-row .amt{font-size:.82rem; font-weight:700; white-space:nowrap; padding-left:.5rem;}
+  .cost-row .amt{font-size:.82rem; font-weight:700; white-space:nowrap; padding-left:.5rem; color:var(--ink);}
   .cost-sub{display:flex; justify-content:space-between; padding-top:.55rem; font-size:.8rem; font-weight:700; color:var(--ink);}
   .grand{
-    background:var(--primary);
-    color:#F7F5F2; border-radius:var(--radius-md); padding:1.05rem 1.15rem; margin-top:.5rem;
+    background:var(--card); border:1px solid var(--border-soft);
+    border-radius:var(--radius-md); padding:1.1rem 1.2rem; margin-top:.5rem;
   }
   .grand .row{display:flex; justify-content:space-between; align-items:baseline; padding:.3rem 0;}
-  .grand .row.total .amt{font-family:var(--font-serif); font-size:1.35rem; font-weight:700;}
-  .grand .row .label{font-size:.78rem; opacity:.75;}
-  .grand .row .amt{font-weight:700;}
+  .grand .row.total .amt{color:var(--primary); font-size:1.55rem; font-weight:900;}
+  .grand .row .label{font-size:.78rem; color:var(--ink-soft);}
+  .grand .row .amt{font-weight:700; color:var(--ink);}
 
   .infobox{
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
+    background:var(--card); border:1px solid var(--border-soft); border-radius:var(--radius-md);
     padding:.8rem .9rem; font-size:.76rem; line-height:1.7; color:var(--ink-soft); margin-bottom:1.15rem;
   }
   .infobox b{color:var(--ink);}
@@ -252,23 +255,24 @@
   .linklist li{margin-bottom:.6rem;}
   .linkcard{
     display:flex; justify-content:space-between; align-items:center; gap:.6rem;
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
+    background:var(--card); border:1px solid var(--border-soft); border-radius:var(--radius-md);
     padding:.85rem .9rem; text-decoration:none; color:var(--ink);
-    transition:background .15s ease;
+    box-shadow:var(--shadow-sm);
+    transition:transform .12s ease;
   }
-  .linkcard:active{background:var(--border-soft);}
+  .linkcard:active{transform:scale(.98);}
   .linkcard .t{font-size:.83rem; font-weight:700; display:flex; align-items:center; gap:.35rem;}
   .linkcard .u{font-size:.68rem; color:var(--ink-soft); word-break:break-all; margin-top:.15rem;}
-  .linkcard .arrow{color:var(--ink-soft); font-size:1rem; flex:0 0 auto;}
+  .linkcard .arrow{color:var(--primary); font-size:1rem; flex:0 0 auto;}
   .phonecard{
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md);
-    padding:.85rem .9rem; font-size:.8rem; margin-bottom:.6rem;
+    background:var(--card); border:1px solid var(--border-soft); border-radius:var(--radius-md);
+    padding:.85rem .9rem; font-size:.8rem; margin-bottom:.6rem; color:var(--ink);
   }
   .phonecard .t{font-weight:700; margin-bottom:.2rem;}
 
   /* settings */
   .setting-group{margin-bottom:1.5rem;}
-  .setting-group h3{font-size:.88rem; font-weight:700; margin:0 0 .1rem;}
+  .setting-group h3{font-size:.88rem; font-weight:700; margin:0 0 .1rem; color:var(--ink);}
   .setting-group .desc{font-size:.72rem; color:var(--ink-soft); margin:0 0 .7rem;}
   .swatches{display:flex; gap:.65rem; flex-wrap:wrap;}
   .swatch{
@@ -280,30 +284,30 @@
   .swatch.active{border-color:var(--ink);}
   .swatch.active::after{
     content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:1rem; font-weight:700;
+    color:var(--bg); font-size:1rem; font-weight:900;
   }
-  .segmented{display:flex; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:.2rem; gap:.2rem;}
+  .segmented{display:flex; background:var(--bg); border:1px solid var(--border-soft); border-radius:var(--radius-sm); padding:.2rem; gap:.2rem;}
   .segmented button{
     flex:1; font-family:inherit; font-size:.82rem; font-weight:700; color:var(--ink-soft);
     background:transparent; border:none; border-radius:.4rem; padding:.5rem 0; cursor:pointer;
     transition:background .15s ease, color .15s ease;
   }
-  .segmented button.active{background:var(--card); color:var(--ink); box-shadow:var(--shadow-sm);}
+  .segmented button.active{background:var(--card); color:var(--primary);}
   .setting-note{
-    font-size:.72rem; color:var(--ink-soft); background:var(--bg); border:1px solid var(--border);
+    font-size:.72rem; color:var(--ink-soft); background:var(--card); border:1px solid var(--border-soft);
     border-radius:var(--radius-sm); padding:.7rem .8rem; line-height:1.7;
   }
   .resetbtn{
     margin-top:.3rem; font-size:.78rem; font-weight:700; color:var(--ink-soft);
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm);
+    background:transparent; border:1px solid var(--border); border-radius:999px;
     padding:.55rem .95rem; cursor:pointer;
     transition:background .15s ease;
   }
-  .resetbtn:active{background:var(--border-soft);}
+  .resetbtn:active{background:var(--card);}
 
   footer{
     max-width:640px; margin:1.3rem auto 0; padding:1rem 1.15rem 0;
-    font-size:.68rem; color:var(--ink-soft); line-height:1.8; border-top:1px solid var(--border);
+    font-size:.68rem; color:var(--ink-soft); line-height:1.8; border-top:1px solid var(--border-soft);
   }
 </style>
 </head>
@@ -327,6 +331,7 @@
     <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"></path><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"></path></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12z"></path><circle cx="12" cy="9" r="2.3"></circle></symbol>
     <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></symbol>
+    <symbol id="i-yen" viewBox="0 0 24 24"><path d="M6 4l6 8 6-8"></path><line x1="12" y1="12" x2="12" y2="20"></line><line x1="8" y1="15" x2="16" y2="15"></line><line x1="8" y1="18" x2="16" y2="18"></line></symbol>
   </defs>
 </svg>
 
@@ -342,22 +347,21 @@
       </div>
     </div>
     <div class="header-actions">
-      <button class="gearbtn" id="gearbtn" aria-label="表示設定"><svg class="icon"><use href="#i-gear"></use></svg></button>
+      <button class="gearbtn tabbtn" data-target="stay" aria-label="宿"><svg class="icon"><use href="#i-home"></use></svg></button>
+      <button class="gearbtn tabbtn" data-target="cost" aria-label="費用"><svg class="icon"><use href="#i-yen"></use></svg></button>
+      <button class="gearbtn tabbtn" data-target="links" aria-label="リンク"><svg class="icon"><use href="#i-link"></use></svg></button>
+      <button class="gearbtn tabbtn" data-target="settings" aria-label="表示設定"><svg class="icon"><use href="#i-gear"></use></svg></button>
       <a class="gearbtn" href="https://walica.jp/group/01M0HQ6YEEX6ZW0X3N42W332Y5" target="_blank" rel="noopener" aria-label="Waricaを開く"><svg class="icon"><use href="#i-wallet"></use></svg></a>
     </div>
   </div>
 </header>
 
 <nav class="tabs" id="tabs">
-  <button data-target="day1" class="active">Day1<span class="d">8/23(日)</span></button>
-  <button data-target="day2">Day2<span class="d">8/24(月)</span></button>
-  <button data-target="day3">Day3<span class="d">8/25(火)</span></button>
-  <button data-target="day4">Day4<span class="d">8/26(水)</span></button>
-  <button data-target="day5">Day5<span class="d">8/27(木)</span></button>
-  <button data-target="stay">宿</button>
-  <button data-target="cost">費用</button>
-  <button data-target="links">リンク</button>
-  <button data-target="settings">設定</button>
+  <button class="tabbtn active" data-target="day1">Day1<span class="d">8/23(日)</span></button>
+  <button class="tabbtn" data-target="day2">Day2<span class="d">8/24(月)</span></button>
+  <button class="tabbtn" data-target="day3">Day3<span class="d">8/25(火)</span></button>
+  <button class="tabbtn" data-target="day4">Day4<span class="d">8/26(水)</span></button>
+  <button class="tabbtn" data-target="day5">Day5<span class="d">8/27(木)</span></button>
 </nav>
 
 <main>
@@ -635,7 +639,7 @@
   <!-- COST -->
   <section class="day" id="cost">
     <div class="section-head">
-      <div class="badge">¥</div>
+      <div class="badge"><svg class="icon"><use href="#i-yen"></use></svg></div>
       <div><h2>費用まとめ</h2><p>3人合計／未定の食事代は含みません</p></div>
     </div>
 
@@ -766,12 +770,12 @@
       <h3>テーマカラー</h3>
       <p class="desc">タブや見出しの色を変更します</p>
       <div class="swatches" id="theme-swatches">
-        <button class="swatch active" data-theme="blue" style="background:#2B3138" aria-label="チャコール"></button>
-        <button class="swatch" data-theme="teal" style="background:#A8593F" aria-label="テラコッタ"></button>
-        <button class="swatch" data-theme="green" style="background:#6E6B3F" aria-label="オリーブ"></button>
-        <button class="swatch" data-theme="purple" style="background:#6B3A4A" aria-label="ワイン"></button>
-        <button class="swatch" data-theme="slate" style="background:#46586B" aria-label="スレート"></button>
-        <button class="swatch" data-theme="rose" style="background:#8A6A45" aria-label="サンド"></button>
+        <button class="swatch active" data-theme="blue" style="background:#22C6A0" aria-label="ティール"></button>
+        <button class="swatch" data-theme="teal" style="background:#FF6B5B" aria-label="コーラル"></button>
+        <button class="swatch" data-theme="green" style="background:#F5A623" aria-label="アンバー"></button>
+        <button class="swatch" data-theme="purple" style="background:#8B7CF6" aria-label="バイオレット"></button>
+        <button class="swatch" data-theme="slate" style="background:#4DA6FF" aria-label="スカイ"></button>
+        <button class="swatch" data-theme="rose" style="background:#FF6FA0" aria-label="ローズ"></button>
       </div>
     </div>
 
@@ -795,7 +799,7 @@
       </div>
     </div>
 
-    <button class="resetbtn" id="resetbtn">初期設定（チャコール・中・ゴシック体）に戻す</button>
+    <button class="resetbtn" id="resetbtn">初期設定（ティール・中・ゴシック体）に戻す</button>
 
     <div class="setting-note" style="margin-top:1.1rem;">この設定はこのページを開いている間だけ有効です。ページを閉じたり再読み込みすると初期状態に戻ります。</div>
   </section>
@@ -808,8 +812,8 @@
 </footer>
 
 <script>
-  // ---- tab switching ----
-  const buttons = document.querySelectorAll('#tabs button');
+  // ---- tab switching (Day1-5 in nav.tabs + stay/cost/links/settings in header) ----
+  const buttons = document.querySelectorAll('.tabbtn');
   const sections = document.querySelectorAll('section.day');
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -820,14 +824,11 @@
       window.scrollTo({top: 0, behavior: 'smooth'});
     });
   });
-  document.getElementById('gearbtn').addEventListener('click', () => {
-    document.querySelector('#tabs button[data-target="settings"]').click();
-  });
 
   // ---- day-to-day navigation ----
   document.querySelectorAll('.daynav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelector(`#tabs button[data-target="${btn.dataset.goto}"]`).click();
+      document.querySelector(`.tabbtn[data-target="${btn.dataset.goto}"]`).click();
     });
   });
 
@@ -848,12 +849,12 @@
 
   // ---- settings: theme color ----
   const THEMES = {
-    blue:   {primary:'#2B3138', dark:'#1B1F24', tint:'#F1EFEC'},
-    teal:   {primary:'#A8593F', dark:'#8B4531', tint:'#F7EEEA'},
-    green:  {primary:'#6E6B3F', dark:'#55532F', tint:'#F3F1E7'},
-    purple: {primary:'#6B3A4A', dark:'#522C39', tint:'#F5EBEE'},
-    slate:  {primary:'#46586B', dark:'#354553', tint:'#EEF1F3'},
-    rose:   {primary:'#8A6A45', dark:'#6E5436', tint:'#F5EFE6'},
+    blue:   {primary:'#22C6A0', dark:'#1AA688', tint:'#16332C'},
+    teal:   {primary:'#FF6B5B', dark:'#E0543F', tint:'#2E1815'},
+    green:  {primary:'#F5A623', dark:'#D6890F', tint:'#2E2210'},
+    purple: {primary:'#8B7CF6', dark:'#6E5EDB', tint:'#201D33'},
+    slate:  {primary:'#4DA6FF', dark:'#2E8AE0', tint:'#16232E'},
+    rose:   {primary:'#FF6FA0', dark:'#E0538A', tint:'#2E1620'},
   };
   const root = document.documentElement;
   document.querySelectorAll('#theme-swatches .swatch').forEach(sw => {
@@ -905,6 +906,9 @@
     document.querySelectorAll('#font-segmented button').forEach(x => x.classList.remove('active'));
     document.querySelector('#font-segmented button[data-font="gothic"]').classList.add('active');
   });
+
+  // ---- initial active state ----
+  document.querySelector('.tabbtn[data-target="day1"]').classList.add('active');
 </script>
 
 </body>
