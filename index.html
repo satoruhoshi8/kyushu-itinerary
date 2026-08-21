@@ -52,7 +52,7 @@
 
   /* header */
   header.top{
-    padding:1.3rem 1.15rem 1rem;
+    padding:calc(env(safe-area-inset-top, 0px) + 1.9rem) 1.15rem 1.1rem;
   }
   header.top .row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
   header.top .eyebrow{
@@ -79,6 +79,12 @@
   }
   .gearbtn:active{transform:scale(.92);}
   .gearbtn.active{background:var(--primary); border-color:var(--primary); color:var(--bg);}
+  .warica-btn{
+    width:auto; padding:0 .85rem; border-radius:999px; gap:.35rem;
+    background:var(--primary); border-color:var(--primary); color:var(--bg);
+    font-family:inherit; font-size:.78rem; font-weight:800;
+  }
+  .warica-btn:active{background:var(--primary-dark); border-color:var(--primary-dark); transform:scale(.95);}
 
   /* tab nav */
   nav.tabs{
@@ -351,7 +357,7 @@
       <button class="gearbtn tabbtn" data-target="cost" aria-label="費用"><svg class="icon"><use href="#i-yen"></use></svg></button>
       <button class="gearbtn tabbtn" data-target="links" aria-label="リンク"><svg class="icon"><use href="#i-link"></use></svg></button>
       <button class="gearbtn tabbtn" data-target="settings" aria-label="表示設定"><svg class="icon"><use href="#i-gear"></use></svg></button>
-      <a class="gearbtn" href="https://walica.jp/group/01M0HQ6YEEX6ZW0X3N42W332Y5" target="_blank" rel="noopener" aria-label="Waricaを開く"><svg class="icon"><use href="#i-wallet"></use></svg></a>
+      <a class="gearbtn warica-btn" href="https://walica.jp/group/01M0HQ6YEEX6ZW0X3N42W332Y5" target="_blank" rel="noopener" aria-label="Waricaを開く"><svg class="icon"><use href="#i-wallet"></use></svg>ワリカ</a>
     </div>
   </div>
 </header>
